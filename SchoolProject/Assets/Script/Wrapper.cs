@@ -20,6 +20,20 @@ public class Wrapper : MonoBehaviour
     [DllImport(DLL_NAME)]
     private static extern float getZ();
 
+
+    public static Vector3 LoadPos()
+    {
+        LoadLocation();
+
+        Vector3 returnvec = new Vector3(getX(), getY(), getZ());
+
+        return returnvec;
+    }
+
+    public static void SavePos(float x, float y, float z)
+    {
+        SaveLocation(x,y,z);
+    }
     private void Start()
     {
 

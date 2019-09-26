@@ -1,24 +1,64 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.InteropServices;
+
+
+
 
 public class PlayerInput : MonoBehaviour
 {
-
+   
+    Wrapper CPPDLL;
     public Rigidbody player;
     public float moveSpeed = 100.0f;
     private Vector3 moveDirection;
     public static bool CanMove = true;
     public Canvas BtnCanvas;
 
+    public UnityEngine.UI.Button SaveBtn;
+    public UnityEngine.UI.Button LoadBtn;
     Vector2 rotation = new Vector2(0, 0);
     public float sensitivity = 1.5f;
+    public mouseHovor MsHvr;
 
+   
+
+
+
+
+
+    
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         BtnCanvas.enabled = false;
+        
     }
+
+    public void SaveButtonClick()
+    {
+
+        BtnCanvas.enabled = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        CanMove = true;
+        Vector3 temp = mouseHovor.ObjectMoving.transform.position;
+        float x = temp.x;
+        float y = temp.y;
+        float z = temp.z;
+
+        Wrapper.SavePos(x,y,z);
+    }
+
+    public void LoadButtonClick()
+    {
+
+        BtnCanvas.enabled = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        CanMove = true;
+        mouseHovor.ObjectMoving.transform.position = Wrapper.LoadPos();
+    }
+
 
     void Update()
     {
@@ -44,7 +84,7 @@ public class PlayerInput : MonoBehaviour
             {
                 moveDirection = player.transform.rotation * -Vector3.right;
             }
-
+            
             GetComponent<Rigidbody>().velocity = moveDirection * moveSpeed;
             moveDirection = new Vector3(0, 0, 0);
             player.transform.position = new Vector3(player.position.x, 3.0f, player.position.z);

@@ -21,7 +21,7 @@ public class mouseHovor : MonoBehaviour
 
     void Awake()
     {
-        
+        ObjectMoving = this.gameObject;
         Rend = GetComponent<Renderer>();
         OldMat = Rend.material;
     }
@@ -29,6 +29,7 @@ public class mouseHovor : MonoBehaviour
     void Update()
     {
         lookingAt = GameObject.Find(rayFromCamera.lookingAt);
+        
 
         if (mouseOver && !MovingStuff)
         {
