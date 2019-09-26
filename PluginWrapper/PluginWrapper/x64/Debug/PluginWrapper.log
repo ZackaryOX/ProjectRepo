@@ -1,0 +1,6 @@
+﻿  SimpleClass.cpp
+  Wrapper.cpp
+  Generating Code...
+C:\Users\100664645\source\repos\PluginWrapper\PluginWrapper\SimpleClass.cpp(32,33): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+     Creating library C:\Users\100664645\source\repos\PluginWrapper\x64\Debug\PluginWrapper.lib and object C:\Users\100664645\source\repos\PluginWrapper\x64\Debug\PluginWrapper.exp
+  PluginWrapper.vcxproj -> C:\Users\100664645\source\repos\PluginWrapper\x64\Debug\PluginWrapper.dll
