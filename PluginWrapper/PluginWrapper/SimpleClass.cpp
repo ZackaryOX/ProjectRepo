@@ -35,7 +35,6 @@ void SimpleClass::LoadPosition() {
 		string z;
 		string* strptr = nullptr;
 		for (int i = 0; i < test.length(); i++) {
-
 			if (test[i] == 'X') {
 				strptr = &x;
 				continue;
@@ -48,14 +47,10 @@ void SimpleClass::LoadPosition() {
 				strptr = &z;
 				continue;
 			}
-
 			if (strptr != nullptr) {
 				*strptr +=  test[i];
 			}
-			
-
 		}
-
 		this->X = stof(x);
 		this->Y = stof(y);
 		this->Z = stof(z);
