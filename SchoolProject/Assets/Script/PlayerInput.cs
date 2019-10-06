@@ -47,7 +47,7 @@ public class PlayerInput : MonoBehaviour
         float y = temp.y;
         float z = temp.z;
 
-        Wrapper.SavePos(x,y,z);
+        //Wrapper.SavePos(x,y,z);
     }
 
     public void LoadButtonClick()
@@ -56,7 +56,7 @@ public class PlayerInput : MonoBehaviour
         BtnCanvas.enabled = false;
         Cursor.lockState = CursorLockMode.Locked;
         CanMove = true;
-        mouseHovor.ObjectMoving.transform.position = Wrapper.LoadPos();
+        //mouseHovor.ObjectMoving.transform.position = Wrapper.LoadPos();
     }
 
 

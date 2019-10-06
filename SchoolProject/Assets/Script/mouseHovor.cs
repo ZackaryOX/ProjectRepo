@@ -21,7 +21,7 @@ public class mouseHovor : MonoBehaviour
 
     void Awake()
     {
-        ObjectMoving = this.gameObject;
+        //ObjectMoving = this.gameObject;
         Rend = GetComponent<Renderer>();
         OldMat = Rend.material;
     }
@@ -38,7 +38,7 @@ public class mouseHovor : MonoBehaviour
             if (Input.GetKey(KeyCode.E))
             {
                 MovingStuff = true;
-                ObjectMoving = this.gameObject;
+                ObjectMoving = lookingAt;//this.gameObject;
 
             }
         }
@@ -49,13 +49,28 @@ public class mouseHovor : MonoBehaviour
                 MovingStuff = false;
                 return;
             }
+
+ 
             Vector3 worldpos = new Vector3(0, 0, 5);
 
             Vector2 mousePos = Input.mousePosition;
             worldpos.x = mousePos.x;
             worldpos.y = mousePos.y;
             Vector3 newVec = Camera.main.ScreenToWorldPoint(worldpos);
-            gameObject.transform.position = newVec;
+            ObjectMoving.transform.position = newVec;
+
+            if (Input.GetMouseButton(0))
+            {
+                Vector3 OldRot = ObjectMoving.transform.rotation.eulerAngles;
+                OldRot.y += 90 * Time.deltaTime;
+                ObjectMoving.transform.rotation = Quaternion.Euler(OldRot);
+            }
+            if (Input.GetMouseButton(1))
+            {
+                Vector3 OldRot = ObjectMoving.transform.rotation.eulerAngles;
+                OldRot.y -= 90 * Time.deltaTime;
+                ObjectMoving.transform.rotation = Quaternion.Euler(OldRot);
+            }
         }
     }
 
