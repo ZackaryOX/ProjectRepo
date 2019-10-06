@@ -11,7 +11,7 @@ public class PlayerInput : MonoBehaviour
    
     Wrapper CPPDLL;
     public Rigidbody player;
-    public float moveSpeed = 100.0f;
+    public float moveSpeed = 10.0f;
     private Vector3 moveDirection;
     public static bool CanMove = true;
     public Canvas BtnCanvas;
@@ -76,6 +76,14 @@ public class PlayerInput : MonoBehaviour
             {
                 moveDirection = player.transform.rotation * -Vector3.forward;
             }
+            if (Input.GetKey("c"))
+            {
+                moveDirection = player.transform.rotation * Vector3.up;
+            }
+            if (Input.GetKey("x"))
+            {
+                moveDirection = player.transform.rotation * -Vector3.up;
+            }
             if (Input.GetKey("d"))
             {
                 moveDirection = player.transform.rotation * Vector3.right;
@@ -87,7 +95,7 @@ public class PlayerInput : MonoBehaviour
             
             GetComponent<Rigidbody>().velocity = moveDirection * moveSpeed;
             moveDirection = new Vector3(0, 0, 0);
-            player.transform.position = new Vector3(player.position.x, 3.0f, player.position.z);
+            player.transform.position = new Vector3(player.position.x, player.position.y, player.position.z);
 
 
             
@@ -96,6 +104,14 @@ public class PlayerInput : MonoBehaviour
         {
             GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
+        }
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            moveSpeed = 50;
+        }
+        else
+        {
+            moveSpeed = 10;
         }
         if (Input.GetKeyDown("f"))
         {

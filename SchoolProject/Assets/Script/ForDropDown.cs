@@ -177,50 +177,46 @@ public class RemoteClass
     }
 }
 
-public class Cube : Objects
+public class Wall : Objects
 {
-    public Cube()
+    public Wall()
     {
        
 
         GameObject newobject;
-        newobject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        newobject = GameObject.Find("Wall");
        
         newobject.transform.position = new Vector3(-1500, -1500, -1500);
-        newobject.AddComponent<mouseHovor>();
-        newobject.GetComponent<mouseHovor>().NewMat = ForDropDown.forclasses;
         this.Obj = newobject;
         this.typeID = 1;
 
         
     }
 }
-public class Sphere : Objects
+public class Window : Objects
 {
-    public Sphere()
+    public Window()
     {
 
 
         GameObject newobject;
-        newobject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        newobject = GameObject.Find("Window");
         newobject.transform.position = new Vector3(-1500, -1500, -1500);
-        newobject.AddComponent<mouseHovor>();
-        newobject.GetComponent<mouseHovor>().NewMat = ForDropDown.forclasses;
+        
         this.Obj = newobject;
         this.typeID = 2;
     }
 }
-public class Cone : Objects
+public class Door : Objects
 {
-    public Cone()
+    public Door()
     {
 
 
         GameObject newobject;
-        newobject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+        newobject = GameObject.Find("Door");
         newobject.transform.position = new Vector3(-1500, -1500, -1500);
-        newobject.AddComponent<mouseHovor>();
-        newobject.GetComponent<mouseHovor>().NewMat = ForDropDown.forclasses;
+
         this.Obj = newobject;
         this.typeID = 3;
     }
@@ -380,15 +376,15 @@ public class ObjectManager
 
         if (typeid == 2)
         {
-            newobj = Prefabs["Sphere"].Clone();
+            newobj = Prefabs["Window"].Clone();
         }
         else if (typeid == 3)
         {
-            newobj = Prefabs["Cone"].Clone();
+            newobj = Prefabs["Door"].Clone();
         }
         else
         {
-            newobj = Prefabs["Cube"].Clone();
+            newobj = Prefabs["Wall"].Clone();
         }
         AllObjects.Add(newobj);
         return newobj;
@@ -409,8 +405,7 @@ public class ForDropDown : MonoBehaviour
     public GameObject createButton;
     public GameObject deleteButton;
     public Material Hovermat;
-    List<int> IDsInOrder = new List<int>() { };
-    List<string> models = new List<string>() { "Cube", "Sphere", "Cone" };
+    List<string> models = new List<string>() { "Wall", "Window", "Door" };
     public Dropdown drop;
     int index;
     ObjectManager SceneMgr = new ObjectManager();
@@ -419,9 +414,9 @@ public class ForDropDown : MonoBehaviour
     {
         drop.AddOptions(models);
         forclasses = Hovermat;
-        SceneMgr.Prefabs.Add("Cube", new Cube());
-        SceneMgr.Prefabs.Add("Sphere", new Sphere());
-        SceneMgr.Prefabs.Add("Cone", new Cone());
+        SceneMgr.Prefabs.Add("Wall", new Wall());
+        SceneMgr.Prefabs.Add("Window", new Window());
+        SceneMgr.Prefabs.Add("Door", new Door());
 
     }
     public void Create()
@@ -438,12 +433,11 @@ public class ForDropDown : MonoBehaviour
     {
         SceneMgr.LoadData();
     }
-    public void Delete()
+    public void Delete(string objname)
     {
-
-        Destroy(SceneMgr.FindObjectWithID(IDsInOrder[IDsInOrder.Count - 1]).Obj);
-        SceneMgr.AllObjects.RemoveAt(SceneMgr.FindIndexWithID(IDsInOrder[IDsInOrder.Count - 1]));
-        IDsInOrder.RemoveAt(IDsInOrder.Count - 1);
+        Objects temp = SceneMgr.FindObjectWithName(objname);
+        Destroy(temp.Obj);
+        SceneMgr.AllObjects.RemoveAt(SceneMgr.FindIndexWithID(temp.ID));
     }
     public void setOption()
     {
@@ -475,7 +469,15 @@ public class ForDropDown : MonoBehaviour
 
 
             }
-            
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                string objtofind = mouseHovor.ObjectMoving.name;
+                mouseHovor.MovingStuff = false;
+                Delete(objtofind);
+
+
+            }
+
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
