@@ -8,14 +8,18 @@ using UnityEngine;
 
 abstract public class Command
 {
+    public Objects slot;
     public virtual void Execute()
     {
+    }
+    public void SetSlot(Objects temp)
+    {
+        this.slot = temp;
     }
 }
 
 public class UndoCommand : Command
 {
-    Objects slot;
     public UndoCommand(Objects temp) {
         this.SetSlot(temp);
     }
@@ -35,16 +39,13 @@ public class UndoCommand : Command
             obj.UndoR.RemoveAt(obj.UndoR.Count - 1);
         }
     }
-    public void SetSlot(Objects temp)
-    {
-        this.slot = temp;
-    }
+
 
 }
 
 public class RedoCommand : Command
 {
-    Objects slot;
+    
     public RedoCommand(Objects temp)
     {
         this.SetSlot(temp);
@@ -65,16 +66,13 @@ public class RedoCommand : Command
 
         }
     }
-    public void SetSlot(Objects temp)
-    {
-        this.slot = temp;
-    }
+
 
 }
 
 public class LogPosCommand : Command
 {
-    Objects slot;
+
     public LogPosCommand(Objects temp)
     {
         this.SetSlot(temp);
@@ -87,16 +85,12 @@ public class LogPosCommand : Command
         this.slot.CurrentRecordedPos = this.slot.Obj.transform.position;
         this.slot.CurrentRecordedRot = this.slot.Obj.transform.rotation.eulerAngles;
     }
-    public void SetSlot(Objects temp)
-    {
-        this.slot = temp;
-    }
+
 
 }
 
 public class ClearRedo : Command
 {
-    Objects slot;
     public ClearRedo(Objects temp)
     {
         this.SetSlot(temp);
@@ -111,10 +105,6 @@ public class ClearRedo : Command
         }
 
 
-    }
-    public void SetSlot(Objects temp)
-    {
-        this.slot = temp;
     }
 
 }
@@ -157,25 +147,7 @@ public abstract class Objects
 
 
 
-public class RemoteClass
-{
-    Command slot;
 
-    public RemoteClass()
-    {
-
-    }
-
-    public void ButtonPressed()
-    {
-        slot.Execute();
-    }
-
-    public void SetCommand(Command temp)
-    {
-        slot = temp;
-    }
-}
 
 public class Wall : Objects
 {
@@ -391,6 +363,26 @@ public class ObjectManager
         
     }
     
+}
+
+public class RemoteClass
+{
+    Command slot;
+
+    public RemoteClass()
+    {
+
+    }
+
+    public void ButtonPressed()
+    {
+        slot.Execute();
+    }
+
+    public void SetCommand(Command temp)
+    {
+        slot = temp;
+    }
 }
 
 
