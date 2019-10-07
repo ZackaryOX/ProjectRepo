@@ -33,6 +33,7 @@ public class mouseHovor : MonoBehaviour
         float gridtolockto = 0.25f;
 
         float posToSet = x;
+
         if (posToSet > 0)
         {
             posToSet /= gridtolockto;
