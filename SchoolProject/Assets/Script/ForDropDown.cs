@@ -439,12 +439,12 @@ public class ForDropDown : MonoBehaviour
         if(index >= 0)
         {
             createButton.SetActive(true);
-            deleteButton.SetActive(true);
+
         }
         else
         {
             createButton.SetActive(false);
-            deleteButton.SetActive(false);
+
         }
 
     }
